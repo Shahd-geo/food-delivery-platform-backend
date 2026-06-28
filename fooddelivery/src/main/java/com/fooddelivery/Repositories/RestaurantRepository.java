@@ -3,8 +3,27 @@ package com.fooddelivery.Repositories;
 import com.fooddelivery.Entities.Customer;
 import com.fooddelivery.Entities.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface RestaurantRepository  extends JpaRepository<Restaurant, Integer> {
+    @Query("""
+       SELECT r
+       FROM Restaurant r
+       WHERE LOWER(r.cuisineType) = LOWER(:cuisineType)
+       AND r.isActive = true
+       """)
+    List<Restaurant> findByCuisineTypeIgnoreCase(@Param("cuisineType") String cuisineType);
+
+    @Query("""
+       SELECT r
+       FROM Restaurant r
+       WHERE r.acceptingOrders = true
+       AND r.isActive = true
+       """)
+    List<Restaurant> findByAcceptingOrdersTrue();
 }
