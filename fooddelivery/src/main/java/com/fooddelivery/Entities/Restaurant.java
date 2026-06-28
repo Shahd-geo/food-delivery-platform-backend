@@ -1,6 +1,7 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,7 @@ public class Restaurant extends BaseEntity{
     private Double minOrderAmount;
     private Double deliveryFee;
     private Boolean acceptingOrders;
+    @ManyToOne
+    private RestaurantOwner restaurantOwner;
 }
 
