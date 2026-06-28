@@ -1,9 +1,12 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -21,4 +24,6 @@ public class DeliveryDriver extends BaseEntity{
     private Double currentLat;
     private Double currentLng;
     private Boolean isOnline;
+    @OneToMany
+    private List<Delivery> deliveries;
 }

@@ -1,6 +1,7 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,7 @@ public class Delivery extends BaseEntity{
     private String assignedAt;
     private String pickedUpAt;
     private String deliveredAt;
+    @ManyToOne
+    private DeliveryDriver deliveryDriver;
 
 }
