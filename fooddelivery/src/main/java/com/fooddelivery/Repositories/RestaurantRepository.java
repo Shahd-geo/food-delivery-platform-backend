@@ -18,7 +18,6 @@ public interface RestaurantRepository  extends JpaRepository<Restaurant, Integer
        AND r.isActive = true
        """)
     List<Restaurant> findByCuisineTypeIgnoreCase(@Param("cuisineType") String cuisineType);
-
     @Query("""
        SELECT r
        FROM Restaurant r
@@ -26,7 +25,6 @@ public interface RestaurantRepository  extends JpaRepository<Restaurant, Integer
        AND r.isActive = true
        """)
     List<Restaurant> findByAcceptingOrdersTrue();
-
     @Query("""
        SELECT r
        FROM Restaurant r
@@ -34,4 +32,18 @@ public interface RestaurantRepository  extends JpaRepository<Restaurant, Integer
        AND r.isActive = true
        """)
     List<Restaurant> findByDeliveryFeeLessThanEqual(@Param("fee") Double fee);
+    @Query("""
+       SELECT r
+       FROM Restaurant r
+       WHERE r.restaurantOwner.id = :ownerId
+       AND r.isActive = true
+       """)
+    List<Restaurant> findByRestaurantOwnerId(@Param("ownerId") Integer ownerId);
+    @Query("""
+       SELECT r
+       FROM Restaurant r
+       WHERE LOWER(r.name) LIKE LOWER(CONCAT('%', :keyword, '%'))
+       AND r.isActive = true
+       """)
+    List<Restaurant> searchByNameKeyword(@Param("keyword") String keyword);
 }
