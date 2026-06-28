@@ -28,10 +28,10 @@ public class Order extends  BaseEntity {
     private Customer customer;
     @ManyToOne
     private Restaurant restaurant;
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     private Delivery delivery;
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     private Payment payment;
 }

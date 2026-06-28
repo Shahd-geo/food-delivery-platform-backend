@@ -24,8 +24,8 @@ public class DeliveryDriver extends BaseEntity {
     private Double currentLat;
     private Double currentLng;
     private Boolean isOnline;
-    @OneToMany
+    @OneToMany(mappedBy = "deliveryDriver")
     private List<Delivery> deliveries;
-    @OneToMany
+    @OneToMany(mappedBy = "deliveryDriver")
     private List<Review> reviews;
 }

@@ -25,13 +25,16 @@ public class Restaurant extends BaseEntity{
     private Boolean acceptingOrders;
     @ManyToOne
     private RestaurantOwner restaurantOwner;
-    @OneToMany
+    @OneToMany(mappedBy = "restaurant")
     private List<MenuItem> menuItems;
-    @OneToMany
+
+    @OneToMany(mappedBy = "restaurant")
     private List<ComboMeal> comboMeals;
-    @OneToMany
+
+    @OneToMany(mappedBy = "restaurant")
     private List<Order> orders;
-    @OneToMany
+
+    @OneToMany(mappedBy = "restaurant")
     private List<Review> reviews;
 }
 
