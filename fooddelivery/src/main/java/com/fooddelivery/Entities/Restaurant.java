@@ -1,4 +1,8 @@
 package com.fooddelivery.Entities;
 
-public class Restaurant {
+import jakarta.persistence.Entity;
+
+@Entity
+public class Restaurant extends BaseEntity{
+
 }
