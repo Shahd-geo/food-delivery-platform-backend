@@ -1,6 +1,7 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,6 @@ public class MenuItem extends BaseEntity {
     private Boolean isAvailable;
     private Boolean isVegetarian;
     private Integer calories;
+    @ManyToOne
+    private Restaurant restaurant;
 }
