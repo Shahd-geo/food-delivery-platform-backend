@@ -1,6 +1,7 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,6 @@ public class ComboMeal extends BaseEntity{
     private String description;
     private Double totalPrice;
     private Boolean isAvailable;
+    @ManyToOne
+    private Restaurant restaurant;
 }

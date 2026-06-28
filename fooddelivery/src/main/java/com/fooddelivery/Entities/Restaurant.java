@@ -27,5 +27,7 @@ public class Restaurant extends BaseEntity{
     private RestaurantOwner restaurantOwner;
     @OneToMany
     private List<MenuItem> menuItems;
+    @OneToMany
+    private List<ComboMeal> comboMeals;
 }
 
