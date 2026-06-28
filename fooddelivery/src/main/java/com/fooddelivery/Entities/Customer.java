@@ -1,4 +1,4 @@
 package com.fooddelivery.Entities;
 
-public class Customer {
+public class Customer extends BaseEntity{
 }
