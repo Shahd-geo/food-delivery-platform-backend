@@ -2,6 +2,7 @@ package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,7 @@ public class Delivery extends BaseEntity{
     private String deliveredAt;
     @ManyToOne
     private DeliveryDriver deliveryDriver;
+    @OneToOne
+    private Order order;
 
 }

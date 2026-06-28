@@ -2,11 +2,14 @@ package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +28,10 @@ public class Order extends  BaseEntity {
     private Customer customer;
     @ManyToOne
     private Restaurant restaurant;
+    @OneToMany
+    private List<OrderItem> orderItems;
+    @OneToOne
+    private Delivery delivery;
+    @OneToOne
+    private Payment payment;
 }

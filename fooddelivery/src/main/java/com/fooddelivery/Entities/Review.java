@@ -17,4 +17,9 @@ public class Review extends BaseEntity{
     private String createdAt;
     @ManyToOne
     private Customer customer;
+    @ManyToOne
+    private Restaurant restaurant;
+    @ManyToOne
+    private DeliveryDriver deliveryDriver;
+
 }

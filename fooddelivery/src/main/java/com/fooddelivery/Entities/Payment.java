@@ -1,6 +1,7 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,6 @@ public class Payment extends BaseEntity {
     private Double amount;
     private String transactionRef;
     private String processedAt;
+    @OneToOne
+    private Order order;
 }

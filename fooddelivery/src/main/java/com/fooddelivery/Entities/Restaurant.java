@@ -31,5 +31,7 @@ public class Restaurant extends BaseEntity{
     private List<ComboMeal> comboMeals;
     @OneToMany
     private List<Order> orders;
+    @OneToMany
+    private List<Review> reviews;
 }
 
