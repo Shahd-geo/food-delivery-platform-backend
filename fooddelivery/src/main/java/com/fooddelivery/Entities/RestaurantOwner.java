@@ -1,4 +1,4 @@
 package com.fooddelivery.Entities;
 
-public class RestaurantOwner {
+public class RestaurantOwner extends BaseEntity {
 }
