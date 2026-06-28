@@ -23,4 +23,6 @@ public class Order extends  BaseEntity {
     private String deliveryNotes;
     @ManyToOne
     private Customer customer;
+    @ManyToOne
+    private Restaurant restaurant;
 }
