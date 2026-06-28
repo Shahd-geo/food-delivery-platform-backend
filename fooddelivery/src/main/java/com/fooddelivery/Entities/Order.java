@@ -1,6 +1,7 @@
 package com.fooddelivery.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,6 @@ public class Order extends  BaseEntity {
     private Double discountAmount;
     private Double totalAmount;
     private String deliveryNotes;
+    @ManyToOne
+    private Customer customer;
 }
