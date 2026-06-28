@@ -1,6 +1,9 @@
 package com.fooddelivery.Entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +16,9 @@ import org.hibernate.validator.constraints.UniqueElements;
 public class Customer extends BaseEntity{
     private String firstName;
     private String lastName;
-    @UniqueElements
+    @Email
+    @NotBlank
+    @Column(unique = true)
     private String email;
     private String phone;
     private String passwordHash;
