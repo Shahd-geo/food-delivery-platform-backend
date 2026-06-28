@@ -9,5 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Payment extends BaseEntity{
-        }
+public class Payment extends BaseEntity {
+    private String paymentMethod;
+    private String status;
+    private Double amount;
+    private String transactionRef;
+    private String processedAt;
+}
