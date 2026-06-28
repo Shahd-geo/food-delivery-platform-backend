@@ -31,4 +31,6 @@ public class Customer extends BaseEntity{
     private List<CustomerAddress> customerAddresses;
     @OneToMany
     private List<Order> orders;
+    @OneToMany
+    private List<Review> reviews;
 }
