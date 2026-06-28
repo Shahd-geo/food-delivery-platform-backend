@@ -26,4 +26,12 @@ public interface RestaurantRepository  extends JpaRepository<Restaurant, Integer
        AND r.isActive = true
        """)
     List<Restaurant> findByAcceptingOrdersTrue();
+
+    @Query("""
+       SELECT r
+       FROM Restaurant r
+       WHERE r.deliveryFee <= :fee
+       AND r.isActive = true
+       """)
+    List<Restaurant> findByDeliveryFeeLessThanEqual(@Param("fee") Double fee);
 }
