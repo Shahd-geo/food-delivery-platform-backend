@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +32,14 @@ public class MenuItemResponseDTO {
 
         return dto;
     }
+    public static List<MenuItemResponseDTO> fromEntity(
+            List<MenuItem> menuItems) {
 
+        List<MenuItemResponseDTO> dtos = new ArrayList<>();
+        for (MenuItem menuItem : menuItems) {
+            dtos.add(fromEntity(menuItem));
+        }
+
+        return dtos;
+    }
 }
