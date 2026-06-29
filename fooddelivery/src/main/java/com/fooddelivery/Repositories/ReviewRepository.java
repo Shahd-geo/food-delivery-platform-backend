@@ -1,4 +1,7 @@
 package com.fooddelivery.Repositories;
 
-public interface ReviewRepository {
+import com.fooddelivery.Entities.Review;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReviewRepository extends JpaRepository<Review,Integer> {
 }
