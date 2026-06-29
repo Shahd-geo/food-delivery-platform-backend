@@ -18,7 +18,7 @@ public class DeliveryResponseDTO {
     private String assignedAt;
     private String pickedUpAt;
     private String deliveredAt;
-    private OrderResponseDTO order;
+    private OrderSummaryDTO order;
 
     public static DeliveryResponseDTO fromEntity(Delivery delivery) {
         DeliveryResponseDTO dto = new DeliveryResponseDTO();
@@ -28,7 +28,7 @@ public class DeliveryResponseDTO {
         dto.setAssignedAt(delivery.getAssignedAt());
         dto.setPickedUpAt(delivery.getPickedUpAt());
         dto.setDeliveredAt(delivery.getDeliveredAt());
-        dto.setOrder(OrderResponseDTO.fromEntity(delivery.getOrder()));
+        dto.setOrder(OrderSummaryDTO.fromEntity(delivery.getOrder()));
 
         return dto;
     }
