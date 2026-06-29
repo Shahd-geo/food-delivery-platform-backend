@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
@@ -43,5 +44,15 @@ public class OrderResponseDTO {
         dto.setOrderItems(OrderItemResponseDTO.fromEntity(order.getOrderItems()));
 
         return dto;
+    }
+    public static List<OrderResponseDTO> fromEntity(List<Order> orders) {
+
+        List<OrderResponseDTO> dtos = new ArrayList<>();
+
+        for (Order order : orders) {
+            dtos.add(fromEntity(order));
+        }
+
+        return dtos;
     }
 }
