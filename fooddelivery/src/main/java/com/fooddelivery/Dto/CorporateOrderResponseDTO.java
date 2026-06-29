@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,5 +35,16 @@ public class CorporateOrderResponseDTO {
         dto.setRestaurant(RestaurantSummaryDTO.fromEntity(corporateOrder.getRestaurant()));
 
         return dto;
+    }
+
+    public static List<CorporateOrderResponseDTO> fromEntity(List<CorporateOrder> corporateOrders) {
+
+        List<CorporateOrderResponseDTO> dtos = new ArrayList<>();
+
+        for (CorporateOrder corporateOrder : corporateOrders) {
+            dtos.add(fromEntity(corporateOrder));
+        }
+
+        return dtos;
     }
 }
