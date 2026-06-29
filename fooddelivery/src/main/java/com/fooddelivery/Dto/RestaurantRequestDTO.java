@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.Restaurant;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -28,4 +29,18 @@ public class RestaurantRequestDTO {
     @NotNull
     private Boolean acceptingOrders;
 
+    public Restaurant toEntity() {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setName(this.name);
+        restaurant.setDescription(this.description);
+        restaurant.setCuisineType(this.cuisineType);
+        restaurant.setOpeningTime(this.openingTime);
+        restaurant.setClosingTime(this.closingTime);
+        restaurant.setMinOrderAmount(this.minOrderAmount);
+        restaurant.setDeliveryFee(this.deliveryFee);
+        restaurant.setAcceptingOrders(this.acceptingOrders);
+
+        return restaurant;
+    }
 }
+
