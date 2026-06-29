@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.Delivery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,17 @@ public class DeliveryResponseDTO {
     private String pickedUpAt;
     private String deliveredAt;
     private OrderResponseDTO order;
+
+    public static DeliveryResponseDTO fromEntity(Delivery delivery) {
+        DeliveryResponseDTO dto = new DeliveryResponseDTO();
+        dto.setId(delivery.getId());
+        dto.setTrackingCode(delivery.getTrackingCode());
+        dto.setStatus(delivery.getStatus());
+        dto.setAssignedAt(delivery.getAssignedAt());
+        dto.setPickedUpAt(delivery.getPickedUpAt());
+        dto.setDeliveredAt(delivery.getDeliveredAt());
+        dto.setOrder(OrderResponseDTO.fromEntity(delivery.getOrder()));
+
+        return dto;
+    }
 }
