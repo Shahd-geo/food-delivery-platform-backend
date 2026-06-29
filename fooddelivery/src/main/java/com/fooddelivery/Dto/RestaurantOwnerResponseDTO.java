@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +31,16 @@ public class RestaurantOwnerResponseDTO {
         dto.setBusinessLicenseCode(owner.getBusinessLicenseCode());
 
         return dto;
+    }
+
+    public static List<RestaurantOwnerResponseDTO> fromEntity(List<RestaurantOwner> owners) {
+
+        List<RestaurantOwnerResponseDTO> dtos = new ArrayList<>();
+
+        for (RestaurantOwner owner : owners) {
+            dtos.add(fromEntity(owner));
+        }
+
+        return dtos;
     }
 }
