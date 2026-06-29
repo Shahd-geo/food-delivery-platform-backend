@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.Delivery;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -17,4 +18,17 @@ public class DeliveryRequestDTO {
     private Integer deliveryDriverId;
     @NotNull
     private Integer orderId;
+
+    public Delivery toEntity() {
+        Delivery delivery = new Delivery();
+
+        delivery.setTrackingCode(this.trackingCode);
+        delivery.setStatus(this.status);
+        delivery.setAssignedAt(this.assignedAt);
+        delivery.setPickedUpAt(this.pickedUpAt);
+        delivery.setDeliveredAt(this.deliveredAt);
+
+        return delivery;
+    }
 }
+
