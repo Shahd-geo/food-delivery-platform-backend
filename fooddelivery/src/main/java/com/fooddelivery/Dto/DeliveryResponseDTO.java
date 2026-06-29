@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +31,16 @@ public class DeliveryResponseDTO {
         dto.setOrder(OrderResponseDTO.fromEntity(delivery.getOrder()));
 
         return dto;
+    }
+
+    public static List<DeliveryResponseDTO> fromEntity(List<Delivery> deliveries) {
+
+        List<DeliveryResponseDTO> dtos = new ArrayList<>();
+
+        for (Delivery delivery : deliveries) {
+            dtos.add(fromEntity(delivery));
+        }
+
+        return dtos;
     }
 }
