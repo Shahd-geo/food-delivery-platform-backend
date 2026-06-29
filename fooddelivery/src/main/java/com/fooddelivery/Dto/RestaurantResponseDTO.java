@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,5 +36,16 @@ public class RestaurantResponseDTO {
         dto.setAcceptingOrders(restaurant.getAcceptingOrders());
 
         return dto;
+    }
+
+    //CONVERT LIST OF RESTURENT
+    public static List<RestaurantResponseDTO> fromEntity(
+            List<Restaurant> restaurants) {
+        List<RestaurantResponseDTO> dtos = new ArrayList<>();
+        for (Restaurant restaurant : restaurants) {
+            dtos.add(fromEntity(restaurant));
+        }
+
+        return dtos;
     }
 }
