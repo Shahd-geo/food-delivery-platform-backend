@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.OrderItem;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -20,4 +21,13 @@ public class OrderItemRequestDTO {
     private String specialInstructions;
     @NotNull
     private Integer menuItemId;
+
+    public OrderItem toEntity() {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(this.quantity);
+        orderItem.setUnitPrice(this.unitPrice);
+        orderItem.setTotalPrice(this.totalPrice);
+        orderItem.setSpecialInstructions(this.specialInstructions);
+        return orderItem;
+    }
 }
