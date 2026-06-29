@@ -38,7 +38,7 @@ public class RestaurantResponseDTO {
         return dto;
     }
 
-    //CONVERT LIST OF RESTURENT
+    // CONVERT LIST OF RESTAURANTS
     public static List<RestaurantResponseDTO> fromEntity(
             List<Restaurant> restaurants) {
         List<RestaurantResponseDTO> dtos = new ArrayList<>();
