@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +26,17 @@ public class ReviewResponseDTO {
         dto.setCreatedAt(review.getCreatedAt());
 
         return dto;
+    }
+
+    public static List<ReviewResponseDTO> fromEntity(List<Review> reviews) {
+
+        List<ReviewResponseDTO> dtos = new ArrayList<>();
+
+        for (Review review : reviews) {
+            dtos.add(fromEntity(review));
+        }
+
+        return dtos;
     }
 
 }
