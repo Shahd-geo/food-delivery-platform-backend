@@ -1,4 +1,6 @@
 package com.fooddelivery.Repositories;
 
-public interface DeliveryRepository {
+import com.fooddelivery.Entities.Delivery;
+
+public interface DeliveryRepository  extends JpaRepository<Delivery,Integer>{
 }
