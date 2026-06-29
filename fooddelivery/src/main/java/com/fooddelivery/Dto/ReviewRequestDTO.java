@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.Review;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -20,4 +21,13 @@ public class ReviewRequestDTO {
     private Integer rating;
     @NotBlank
     private String comment;
+
+    public Review toEntity() {
+        Review review = new Review();
+        review.setTargetType(this.targetType);
+        review.setRating(this.rating);
+        review.setComment(this.comment);
+
+        return review;
+    }
 }
