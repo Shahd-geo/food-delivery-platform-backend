@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.Customer;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -22,5 +23,15 @@ public class CustomerRequestDTO {
     private String phone;
     @NotBlank
     private String passwordHash;
+
+    public Customer toEntity() {
+        Customer customer = new Customer();
+        customer.setFirstName(this.firstName);
+        customer.setLastName(this.lastName);
+        customer.setEmail(this.email);
+        customer.setPhone(this.phone);
+        customer.setPasswordHash(this.passwordHash);
+        return customer;
+    }
 
 }
