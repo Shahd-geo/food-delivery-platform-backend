@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,5 +27,14 @@ public class ComboMealResponseDTO {
         dto.setIsAvailable(comboMeal.getIsAvailable());
 
         return dto;
+    }
+    public static List<ComboMealResponseDTO> fromEntity(List<ComboMeal> comboMeals) {
+        List<ComboMealResponseDTO> dtos = new ArrayList<>();
+
+        for (ComboMeal comboMeal : comboMeals) {
+            dtos.add(fromEntity(comboMeal));
+        }
+
+        return dtos;
     }
 }
