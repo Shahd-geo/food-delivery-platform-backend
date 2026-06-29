@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +26,15 @@ public class CustomerAddressResponseDTO {
         dto.setBuilding(address.getBuilding());
         dto.setIsDefault(address.getIsDefault());
         return dto;
+    }
+    public static List<CustomerAddressResponseDTO> fromEntity(
+            List<CustomerAddress> addresses) {
+        List<CustomerAddressResponseDTO> dtos = new ArrayList<>();
+
+        for (CustomerAddress address : addresses) {
+            dtos.add(fromEntity(address));
+        }
+
+        return dtos;
     }
 }
