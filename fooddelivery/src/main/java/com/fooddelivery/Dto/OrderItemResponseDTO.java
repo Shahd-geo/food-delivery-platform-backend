@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,5 +27,15 @@ public class OrderItemResponseDTO {
         dto.setSpecialInstructions(orderItem.getSpecialInstructions());
 
         return dto;
+    }
+
+    public static List<OrderItemResponseDTO> fromEntity(List<OrderItem> orderItems) {
+        List<OrderItemResponseDTO> dtos = new ArrayList<>();
+
+        for (OrderItem orderItem : orderItems) {
+            dtos.add(fromEntity(orderItem));
+        }
+
+        return dtos;
     }
 }
