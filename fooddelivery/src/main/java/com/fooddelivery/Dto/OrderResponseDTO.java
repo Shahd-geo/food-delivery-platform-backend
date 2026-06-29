@@ -1,5 +1,6 @@
 package com.fooddelivery.Dto;
 
+import com.fooddelivery.Entities.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,25 @@ public class OrderResponseDTO {
     private CustomerSummaryDTO customer;
     private RestaurantSummaryDTO restaurant;
     private List<OrderItemResponseDTO> orderItems;
+    public static OrderResponseDTO fromEntity(Order order) {
+        OrderResponseDTO dto = new OrderResponseDTO();
+        dto.setId(order.getId());
+        dto.setOrderCode(order.getOrderCode());
+        dto.setOrderDate(order.getOrderDate());
+        dto.setStatus(order.getStatus());
+        dto.setSubtotal(order.getSubtotal());
+        dto.setDeliveryFee(order.getDeliveryFee());
+        dto.setDiscountAmount(order.getDiscountAmount());
+        dto.setTotalAmount(order.getTotalAmount());
+
+        dto.setDeliveryNotes(order.getDeliveryNotes());
+
+        dto.setCustomer(CustomerSummaryDTO.fromEntity(order.getCustomer()));
+
+        dto.setRestaurant(RestaurantSummaryDTO.fromEntity(order.getRestaurant()));
+
+        dto.setOrderItems(OrderItemResponseDTO.fromEntity(order.getOrderItems()));
+
+        return dto;
+    }
 }
