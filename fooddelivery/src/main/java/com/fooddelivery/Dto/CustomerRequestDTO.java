@@ -18,7 +18,7 @@ public class CustomerRequestDTO {
     @NotBlank
     @Email
     private String email;
-    @Pattern(regexp = "^\\+?[0-9]{8,15}$")
+    @Pattern(regexp = "^(\\+968)?[0-9]{8}$")
     private String phone;
     @NotBlank
     private String passwordHash;
