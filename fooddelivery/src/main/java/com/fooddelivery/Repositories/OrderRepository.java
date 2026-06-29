@@ -46,4 +46,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
        AND o.isActive = true
        """)
     Long countCompletedOrdersForRestaurant(@Param("restaurantId") Integer restaurantId);
+
+    @Query("""
+       SELECT COALESCE(SUM(o.totalAmount),0)
+       FROM Order o
+       WHERE o.status = 'DELIVERED'
+       AND o.isActive = true
+       """)
+    Double getTotalDeliveredRevenue();
 }
