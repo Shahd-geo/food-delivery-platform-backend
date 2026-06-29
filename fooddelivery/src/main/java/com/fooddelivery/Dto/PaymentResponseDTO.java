@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +30,15 @@ public class PaymentResponseDTO {
         dto.setProcessedAt(payment.getProcessedAt());
         dto.setOrder(OrderSummaryDTO.fromEntity(payment.getOrder()));
         return dto;
+    }
+
+    public static List<PaymentResponseDTO> fromEntity(List<Payment> payments) {
+        List<PaymentResponseDTO> dtos = new ArrayList<>();
+
+        for (Payment payment : payments) {
+            dtos.add(fromEntity(payment));
+        }
+
+        return dtos;
     }
 }
