@@ -1,4 +1,4 @@
 package com.fooddelivery.Exceptions;
 
-public class ResourceNotFoundException {
+public class ResourceNotFoundException extends RuntimeException {
 }
