@@ -29,4 +29,13 @@ public class RestaurantService {
         restaurantRepository.save(restaurant);
         return RestaurantResponseDTO.fromEntity(restaurant);
     }
+    public RestaurantResponseDTO toggleAcceptingOrders(Integer restaurantId) {
+
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found"));
+
+        restaurant.setAcceptingOrders(!restaurant.getAcceptingOrders());
+        restaurantRepository.save(restaurant);
+        return RestaurantResponseDTO.fromEntity(restaurant);
+    }
 }
