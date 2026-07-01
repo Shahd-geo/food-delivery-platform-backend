@@ -120,4 +120,14 @@ public class OrderService {
         orderRepository.save(order);
         return OrderResponseDTO.fromEntity(order);
     }
+    public OrderResponseDTO cancelOrder(Integer orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+        if (!order.getStatus().equals("PENDING")) {
+            throw new InvalidOrderStateException("Only pending orders can be cancelled");}
+        order.setStatus("CANCELLED");
+        orderRepository.save(order);
+        return OrderResponseDTO.fromEntity(order);
+    }
 }
