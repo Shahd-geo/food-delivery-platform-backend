@@ -93,4 +93,14 @@ public class OrderService {
         return OrderResponseDTO.fromEntity(order);
 
     }
+    public OrderResponseDTO removeMenuItemFromOrder(Integer orderId, Integer orderItemId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+        OrderItem orderItem = orderItemRepository.findById(orderItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order item not found"));
+        orderItem.setIsActive(false);
+        orderItemRepository.save(orderItem);
+        return OrderResponseDTO.fromEntity(order);
+    }
 }
