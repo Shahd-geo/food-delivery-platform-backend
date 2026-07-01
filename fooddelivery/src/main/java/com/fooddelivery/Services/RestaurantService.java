@@ -1,7 +1,9 @@
 package com.fooddelivery.Services;
 
+import com.fooddelivery.Dto.MenuItemResponseDTO;
 import com.fooddelivery.Dto.RestaurantRequestDTO;
 import com.fooddelivery.Dto.RestaurantResponseDTO;
+import com.fooddelivery.Entities.MenuItem;
 import com.fooddelivery.Entities.Restaurant;
 import com.fooddelivery.Entities.RestaurantOwner;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
@@ -53,5 +55,9 @@ public class RestaurantService {
     public List<RestaurantResponseDTO> getRestaurantsUnderDeliveryFee(Double fee) {
         List<Restaurant> restaurants = restaurantRepository.findByDeliveryFeeLessThanEqual(fee);
         return RestaurantResponseDTO.fromEntity(restaurants);
+    }
+    public List<MenuItemResponseDTO> getMenuForRestaurant(Integer restaurantId) {
+        List<MenuItem> menuItems = menuItemRepository.findByRestaurantId(restaurantId);
+        return MenuItemResponseDTO.fromEntity(menuItems);
     }
 }
