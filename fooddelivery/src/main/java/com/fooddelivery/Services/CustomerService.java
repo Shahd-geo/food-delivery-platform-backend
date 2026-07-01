@@ -56,5 +56,12 @@ public class CustomerService {
         customerRepository.save(customer);
         return CustomerResponseDTO.fromEntity(customer);
     }
+    public String deactivateCustomer(Integer customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        customer.setIsActive(false);
+        customerRepository.save(customer);
+        return "Customer deactivated successfully";
+    }
 
 }
