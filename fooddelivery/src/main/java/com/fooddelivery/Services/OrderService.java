@@ -27,12 +27,10 @@ public class OrderService {
     public OrderResponseDTO createOrder(OrderRequestDTO dto) {
 
         Customer customer = customerRepository.findById(dto.getCustomerId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Customer not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
 
         Restaurant restaurant = restaurantRepository.findById(dto.getRestaurantId())
                 .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found"));
-
         Order order = dto.toEntity();
         order.setCustomer(customer);
         order.setRestaurant(restaurant);
