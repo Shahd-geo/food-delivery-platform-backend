@@ -103,4 +103,11 @@ public class OrderService {
         orderItemRepository.save(orderItem);
         return OrderResponseDTO.fromEntity(order);
     }
+    public OrderResponseDTO applyDiscount(Integer orderId, Double discountAmount) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        order.setDiscountAmount(discountAmount);
+        orderRepository.save(order);
+        return OrderResponseDTO.fromEntity(order);
+    }
 }
