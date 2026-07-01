@@ -4,6 +4,7 @@ import com.fooddelivery.Dto.OrderItemRequestDTO;
 import com.fooddelivery.Dto.OrderRequestDTO;
 import com.fooddelivery.Dto.OrderResponseDTO;
 import com.fooddelivery.Entities.*;
+import com.fooddelivery.Exceptions.InvalidOrderStateException;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
 import com.fooddelivery.Repositories.*;
 import com.fooddelivery.Utils.HelperUtils;
@@ -107,6 +108,15 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
         order.setDiscountAmount(discountAmount);
+        orderRepository.save(order);
+        return OrderResponseDTO.fromEntity(order);
+    }
+    public OrderResponseDTO updateOrderStatus(Integer orderId, String newStatus) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        if (order.getStatus().equals("CANCELLED")) {
+            throw new InvalidOrderStateException("Cannot update cancelled order");}
+        order.setStatus(newStatus);
         orderRepository.save(order);
         return OrderResponseDTO.fromEntity(order);
     }
