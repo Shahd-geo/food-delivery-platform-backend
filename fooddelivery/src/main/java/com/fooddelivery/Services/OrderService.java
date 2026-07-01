@@ -3,14 +3,9 @@ package com.fooddelivery.Services;
 import com.fooddelivery.Dto.OrderItemRequestDTO;
 import com.fooddelivery.Dto.OrderRequestDTO;
 import com.fooddelivery.Dto.OrderResponseDTO;
-import com.fooddelivery.Entities.Customer;
-import com.fooddelivery.Entities.Order;
-import com.fooddelivery.Entities.Restaurant;
+import com.fooddelivery.Entities.*;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
-import com.fooddelivery.Repositories.CustomerRepository;
-import com.fooddelivery.Repositories.OrderItemRepository;
-import com.fooddelivery.Repositories.OrderRepository;
-import com.fooddelivery.Repositories.RestaurantRepository;
+import com.fooddelivery.Repositories.*;
 import com.fooddelivery.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +23,8 @@ public class OrderService {
     private RestaurantRepository restaurantRepository;
     @Autowired
     private OrderItemRepository orderItemRepository;
+    @Autowired
+    private MenuItemRepository menuItemRepository;
 
     public OrderResponseDTO createOrder(Integer customerId, Integer restaurantId, List<OrderItemRequestDTO> items) {
 
@@ -69,5 +66,31 @@ public class OrderService {
         orderRepository.save(order);
 
         return OrderResponseDTO.fromEntity(order);
+    }
+
+    public OrderResponseDTO addMenuItemToOrder(Integer orderId, Integer menuItemId, int quantity) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not exist"));
+
+        MenuItem item = menuItemRepository.findById(menuItemId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Menu item not exist"));
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder(order);
+        orderItem.setMenuItem(item);
+        orderItem.setQuantity(quantity);
+        orderItem.setUnitPrice(item.getPrice());
+        orderItem.setTotalPrice(item.getPrice() * quantity);
+        orderItemRepository.save(orderItem);
+
+        order.getOrderItems().add(orderItem);
+        order.setTotalAmount(order.getTotalAmount() + orderItem.getTotalPrice());
+
+        orderRepository.save(order);
+
+        return OrderResponseDTO.fromEntity(order);
+
     }
 }
