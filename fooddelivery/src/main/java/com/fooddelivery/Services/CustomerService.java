@@ -1,10 +1,12 @@
 package com.fooddelivery.Services;
 
 import com.fooddelivery.Dto.CustomerAddressRequestDTO;
+import com.fooddelivery.Dto.CustomerAddressResponseDTO;
 import com.fooddelivery.Dto.CustomerRequestDTO;
 import com.fooddelivery.Dto.CustomerResponseDTO;
 import com.fooddelivery.Entities.Customer;
 import com.fooddelivery.Entities.CustomerAddress;
+import com.fooddelivery.Exceptions.ResourceNotFoundException;
 import com.fooddelivery.Repositories.CustomerAddressRepository;
 import com.fooddelivery.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,24 @@ public class CustomerService {
         CustomerAddress address = initialAddress.toEntity();
         address.setCustomer(customer);
         customerAddressRepository.save(address);
+        return CustomerResponseDTO.fromEntity(customer);
+    }
+
+    public CustomerAddressResponseDTO addAddress(Integer customerId, CustomerAddressRequestDTO addressDto) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        CustomerAddress address = addressDto.toEntity();
+        address.setCustomer(customer);
+        customerAddressRepository.save(address);
+        return CustomerAddressResponseDTO.fromEntity(address);
+    }
+    public CustomerResponseDTO updateLoyaltyPoints(Integer customerId, int points) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+
+        customer.setLoyaltyPoints(customer.getLoyaltyPoints() + points);
+
+        customerRepository.save(customer);
         return CustomerResponseDTO.fromEntity(customer);
     }
 
