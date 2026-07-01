@@ -33,8 +33,14 @@ public class RestaurantService {
 
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found"));
-
         restaurant.setAcceptingOrders(!restaurant.getAcceptingOrders());
+        restaurantRepository.save(restaurant);
+        return RestaurantResponseDTO.fromEntity(restaurant);
+    }
+    public RestaurantResponseDTO updateDeliveryFee(Integer restaurantId, Double newFee) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found"));
+        restaurant.setDeliveryFee(newFee);
         restaurantRepository.save(restaurant);
         return RestaurantResponseDTO.fromEntity(restaurant);
     }
