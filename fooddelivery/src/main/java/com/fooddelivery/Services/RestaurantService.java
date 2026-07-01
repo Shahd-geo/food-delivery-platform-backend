@@ -60,4 +60,15 @@ public class RestaurantService {
         List<MenuItem> menuItems = menuItemRepository.findByRestaurantId(restaurantId);
         return MenuItemResponseDTO.fromEntity(menuItems);
     }
+    public String bulkUpdateMenuItemPrices(Integer restaurantId, Double percentage) {
+        List<MenuItem> menuItems = menuItemRepository.findByRestaurantId(restaurantId);
+
+        for (MenuItem item : menuItems) {
+
+            double newPrice = item.getPrice() + (item.getPrice() * percentage / 100);
+            item.setPrice(newPrice);
+        }
+        menuItemRepository.saveAll(menuItems);
+        return "Prices updated successfully";
+    }
 }
