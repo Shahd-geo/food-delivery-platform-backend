@@ -26,6 +26,8 @@ public class OrderService {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private MenuItemRepository menuItemRepository;
+    @Autowired
+    private CorporateOrderRepository corporateOrderRepository;
 
     public OrderResponseDTO createOrder(Integer customerId, Integer restaurantId, List<OrderItemRequestDTO> items) {
 
@@ -147,4 +149,5 @@ public class OrderService {
         orderRepository.save(order);
         return OrderResponseDTO.fromEntity(order);
     }
+
 }
