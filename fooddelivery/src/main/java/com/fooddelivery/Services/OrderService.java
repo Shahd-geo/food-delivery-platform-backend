@@ -50,4 +50,24 @@ public class OrderService {
 
         return OrderResponseDTO.fromEntity(order);
     }
+
+    public OrderResponseDTO createOrder(
+            Integer customerId,
+            Integer restaurantId,
+            List<OrderItemRequestDTO> items,
+            String notes) {
+
+        OrderResponseDTO response =
+                createOrder(customerId, restaurantId, items);
+
+        Order order = orderRepository.findById(response.getId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Order not found"));
+
+        order.setDeliveryNotes(notes);
+
+        orderRepository.save(order);
+
+        return OrderResponseDTO.fromEntity(order);
+    }
 }
