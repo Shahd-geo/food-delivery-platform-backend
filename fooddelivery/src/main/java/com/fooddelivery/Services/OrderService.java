@@ -1,8 +1,6 @@
 package com.fooddelivery.Services;
 
-import com.fooddelivery.Dto.OrderItemRequestDTO;
-import com.fooddelivery.Dto.OrderRequestDTO;
-import com.fooddelivery.Dto.OrderResponseDTO;
+import com.fooddelivery.Dto.*;
 import com.fooddelivery.Entities.*;
 import com.fooddelivery.Exceptions.InvalidOrderStateException;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
@@ -148,6 +146,19 @@ public class OrderService {
         order.setTotalAmount(total);
         orderRepository.save(order);
         return OrderResponseDTO.fromEntity(order);
+    }
+    public CorporateOrderResponseDTO placeCorporateOrder(CorporateOrderRequestDTO dto) {
+        Restaurant restaurant = restaurantRepository
+                .findById(dto.getRestaurantId())
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found"));
+        CorporateOrder corporateOrder = dto.toEntity();
+        corporateOrder.setRestaurant(restaurant);
+        corporateOrder.setOrderDate(LocalDateTime.now());
+        if (corporateOrder.getStatus() == null) {
+            corporateOrder.setStatus("PENDING");
+        }
+        corporateOrderRepository.save(corporateOrder);
+        return CorporateOrderResponseDTO.fromEntity(corporateOrder);
     }
 
 }
