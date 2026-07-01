@@ -11,6 +11,8 @@ import com.fooddelivery.Repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RestaurantService {
 
@@ -43,5 +45,13 @@ public class RestaurantService {
         restaurant.setDeliveryFee(newFee);
         restaurantRepository.save(restaurant);
         return RestaurantResponseDTO.fromEntity(restaurant);
+    }
+    public List<RestaurantResponseDTO> getRestaurantsByCuisine(String cuisineType) {
+        List<Restaurant> restaurants = restaurantRepository.findByCuisineTypeIgnoreCase(cuisineType);
+        return RestaurantResponseDTO.fromEntity(restaurants);
+    }
+    public List<RestaurantResponseDTO> getRestaurantsUnderDeliveryFee(Double fee) {
+        List<Restaurant> restaurants = restaurantRepository.findByDeliveryFeeLessThanEqual(fee);
+        return RestaurantResponseDTO.fromEntity(restaurants);
     }
 }
