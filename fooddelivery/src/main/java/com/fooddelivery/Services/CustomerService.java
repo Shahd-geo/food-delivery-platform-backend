@@ -49,5 +49,12 @@ public class CustomerService {
         customerRepository.save(customer);
         return CustomerResponseDTO.fromEntity(customer);
     }
+    public CustomerResponseDTO applyLoyaltyPenalty(Integer customerId, int pointsDeducted) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        customer.setLoyaltyPoints(customer.getLoyaltyPoints() - pointsDeducted);
+        customerRepository.save(customer);
+        return CustomerResponseDTO.fromEntity(customer);
+    }
 
 }
