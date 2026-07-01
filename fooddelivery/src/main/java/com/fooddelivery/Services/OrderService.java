@@ -130,4 +130,21 @@ public class OrderService {
         orderRepository.save(order);
         return OrderResponseDTO.fromEntity(order);
     }
+    public OrderResponseDTO calculateOrderTotals(Integer orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+        double subtotal = 0.0;
+        for (OrderItem item : order.getOrderItems()) {
+            if (item.getIsActive()) {
+                subtotal += item.getTotalPrice();
+            }
+        }
+        order.setSubtotal(subtotal);
+        double total = HelperUtils.calculateTotal(subtotal, order.getDeliveryFee(), order.getDiscountAmount());
+        order.setTotalAmount(total);
+        orderRepository.save(order);
+        return OrderResponseDTO.fromEntity(order);
+    }
 }
