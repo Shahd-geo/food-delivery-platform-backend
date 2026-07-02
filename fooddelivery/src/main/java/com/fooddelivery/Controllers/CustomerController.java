@@ -1,5 +1,7 @@
 package com.fooddelivery.Controllers;
 
+import com.fooddelivery.Dto.CustomerAddressRequestDTO;
+import com.fooddelivery.Dto.CustomerAddressResponseDTO;
 import com.fooddelivery.Dto.CustomerRequestDTO;
 import com.fooddelivery.Dto.CustomerResponseDTO;
 import com.fooddelivery.Services.CustomerService;
@@ -55,5 +57,9 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> deductLoyaltyPoints(@PathVariable Integer id, @PathVariable int points) {
         return ResponseEntity.ok(customerService.applyLoyaltyPenalty(id, points)
         );
+    }
+    @PostMapping("/{id}/addresses")
+    public ResponseEntity<CustomerAddressResponseDTO> addAddress(@PathVariable Integer id, @RequestBody @Valid CustomerAddressRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.addAddress(id, dto));
     }
 }
