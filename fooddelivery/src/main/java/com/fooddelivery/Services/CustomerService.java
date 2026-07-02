@@ -102,5 +102,12 @@ public class CustomerService {
         customerAddressRepository.save(address);
         return "Address deleted successfully";
     }
+    public CustomerAddressResponseDTO setDefaultAddress(Integer addressId) {
+        CustomerAddress address = customerAddressRepository.findById(addressId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Address not found"));
+        address.setIsDefault(true);
+        customerAddressRepository.save(address);
+        return CustomerAddressResponseDTO.fromEntity(address);
+    }
 
 }
