@@ -21,9 +21,6 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private OrderRepository orderRepository;
-
     //Create new customer
     @PostMapping
     public ResponseEntity<CustomerResponseDTO> createCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
