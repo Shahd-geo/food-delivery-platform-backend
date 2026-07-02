@@ -41,4 +41,9 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.findByEmail(email)
         );
     }
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<String> deactivateCustomer(@PathVariable Integer id) {
+        return ResponseEntity.ok(customerService.deactivateCustomer(id)
+        );
+    }
 }
