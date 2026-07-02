@@ -95,5 +95,12 @@ public class CustomerService {
 
         return response;
     }
+    public String deleteAddress(Integer addressId) {
+        CustomerAddress address = customerAddressRepository.findById(addressId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Address not found"));
+        address.setIsActive(false);
+        customerAddressRepository.save(address);
+        return "Address deleted successfully";
+    }
 
 }
