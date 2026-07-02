@@ -90,5 +90,13 @@ public class DeliveryService {
         List<Delivery> deliveries = deliveryRepository.findByDeliveryDriverIdAndStatus(driverId, status);
         return DeliveryResponseDTO.fromEntity(deliveries);
     }
+    //toggleDriverOnlineStatus
+    public DeliveryDriverResponseDTO toggleDriverOnlineStatus(Integer driverId, boolean isOnline) {
+        DeliveryDriver driver = deliveryDriverRepository.findById(driverId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Driver not found"));
+        driver.setIsOnline(isOnline);
+        deliveryDriverRepository.save(driver);
+        return DeliveryDriverResponseDTO.fromEntity(driver);
+    }
 
 }
