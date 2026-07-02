@@ -90,4 +90,8 @@ public class CustomerController {
     public ResponseEntity<List<OrderResponseDTO>> getCustomerOrders(@PathVariable Integer id) {
         return ResponseEntity.ok(customerService.getAllCustomerOrders(id));
     }
+    @GetMapping("/{id}/addresses")
+    public ResponseEntity<List<CustomerAddressResponseDTO>> getCustomerAddresses(@PathVariable Integer id) {
+        return ResponseEntity.ok(customerService.getAllCustomerAddresses(id));
+    }
 }
