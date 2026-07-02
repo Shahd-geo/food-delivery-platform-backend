@@ -67,5 +67,10 @@ public class CustomerController {
     public ResponseEntity<CustomerAddressResponseDTO> addAddress(@PathVariable Integer id, @RequestBody @Valid CustomerAddressRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.addAddress(id, dto));
     }
+    @DeleteMapping("/addresses/{addressId}")
+    public ResponseEntity<Void> deleteAddress(@PathVariable Integer addressId) {
+        customerService.deleteAddress(addressId);
+        return ResponseEntity.noContent().build();
+    }
 
         }
