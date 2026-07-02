@@ -9,6 +9,7 @@ import com.fooddelivery.Entities.CustomerAddress;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
 import com.fooddelivery.Repositories.CustomerAddressRepository;
 import com.fooddelivery.Repositories.CustomerRepository;
+import com.fooddelivery.Repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private CustomerAddressRepository customerAddressRepository;
+    @Autowired
+    private OrderRepository orderRepository;
     public CustomerResponseDTO createCustomer(CustomerRequestDTO dto) {
         Customer customer = dto.toEntity();
         customerRepository.save(customer);
