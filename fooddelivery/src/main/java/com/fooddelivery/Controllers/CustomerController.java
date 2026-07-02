@@ -4,6 +4,10 @@ import com.fooddelivery.Dto.CustomerAddressRequestDTO;
 import com.fooddelivery.Dto.CustomerAddressResponseDTO;
 import com.fooddelivery.Dto.CustomerRequestDTO;
 import com.fooddelivery.Dto.CustomerResponseDTO;
+import com.fooddelivery.Entities.Customer;
+import com.fooddelivery.Entities.CustomerAddress;
+import com.fooddelivery.Exceptions.ResourceNotFoundException;
+import com.fooddelivery.Repositories.CustomerRepository;
 import com.fooddelivery.Services.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -62,4 +67,5 @@ public class CustomerController {
     public ResponseEntity<CustomerAddressResponseDTO> addAddress(@PathVariable Integer id, @RequestBody @Valid CustomerAddressRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.addAddress(id, dto));
     }
-}
+
+        }
