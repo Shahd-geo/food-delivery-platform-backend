@@ -13,6 +13,7 @@ import com.fooddelivery.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -66,4 +67,23 @@ public class DeliveryService {
         deliveryDriverRepository.save(driver);
         return DeliveryDriverResponseDTO.fromEntity(driver);
     }
+    //markDeliveryPickedUp
+    public DeliveryResponseDTO markDeliveryPickedUp(Integer deliveryId) {
+        Delivery delivery = deliveryRepository.findById(deliveryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Delivery not found"));
+        delivery.setStatus("PICKED_UP");
+        delivery.setPickedUpAt(LocalDateTime.now().toString());
+        deliveryRepository.save(delivery);
+        return DeliveryResponseDTO.fromEntity(delivery);
+    }
+    //markDeliveryDelivered
+    public DeliveryResponseDTO markDeliveryDelivered(Integer deliveryId) {
+        Delivery delivery = deliveryRepository.findById(deliveryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Delivery not found"));
+        delivery.setStatus("DELIVERED");
+        delivery.setDeliveredAt(LocalDateTime.now().toString());
+        deliveryRepository.save(delivery);
+        return DeliveryResponseDTO.fromEntity(delivery);
+    }
+
 }
