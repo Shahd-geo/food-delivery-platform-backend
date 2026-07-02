@@ -1,11 +1,9 @@
 package com.fooddelivery.Services;
 
-import com.fooddelivery.Dto.CustomerAddressRequestDTO;
-import com.fooddelivery.Dto.CustomerAddressResponseDTO;
-import com.fooddelivery.Dto.CustomerRequestDTO;
-import com.fooddelivery.Dto.CustomerResponseDTO;
+import com.fooddelivery.Dto.*;
 import com.fooddelivery.Entities.Customer;
 import com.fooddelivery.Entities.CustomerAddress;
+import com.fooddelivery.Entities.Order;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
 import com.fooddelivery.Repositories.CustomerAddressRepository;
 import com.fooddelivery.Repositories.CustomerRepository;
@@ -111,6 +109,15 @@ public class CustomerService {
         address.setIsDefault(true);
         customerAddressRepository.save(address);
         return CustomerAddressResponseDTO.fromEntity(address);
+    }
+    public List<OrderResponseDTO> getAllCustomerOrders(Integer customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        List<Order> orders = orderRepository.findByCustomerId(customerId);
+        List<OrderResponseDTO> response = new ArrayList<>();
+        for (Order order : orders) {
+            response.add(OrderResponseDTO.fromEntity(order));}
+        return response;
     }
 
 }
