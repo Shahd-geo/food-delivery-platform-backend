@@ -8,6 +8,7 @@ import com.fooddelivery.Entities.Customer;
 import com.fooddelivery.Entities.CustomerAddress;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
 import com.fooddelivery.Repositories.CustomerRepository;
+import com.fooddelivery.Repositories.OrderRepository;
 import com.fooddelivery.Services.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private OrderRepository orderRepository;
 
     //Create new customer
     @PostMapping
