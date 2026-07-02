@@ -12,6 +12,9 @@ import com.fooddelivery.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -62,6 +65,14 @@ public class CustomerService {
         customer.setIsActive(false);
         customerRepository.save(customer);
         return "Customer deactivated successfully";
+    }
+    public List<CustomerResponseDTO> getAllCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        List<CustomerResponseDTO> response = new ArrayList<>();
+        for (Customer customer : customers) {
+            response.add(CustomerResponseDTO.fromEntity(customer));
+        }
+        return response;
     }
 
 }
