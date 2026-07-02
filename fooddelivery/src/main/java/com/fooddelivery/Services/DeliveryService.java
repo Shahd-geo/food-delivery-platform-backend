@@ -1,5 +1,6 @@
 package com.fooddelivery.Services;
 
+import com.fooddelivery.Dto.DeliveryDriverResponseDTO;
 import com.fooddelivery.Dto.DeliveryResponseDTO;
 import com.fooddelivery.Entities.Delivery;
 import com.fooddelivery.Entities.DeliveryDriver;
@@ -54,5 +55,15 @@ public class DeliveryService {
         delivery.setStatus("ASSIGNED");
         deliveryRepository.save(delivery);
         return DeliveryResponseDTO.fromEntity(delivery);
+    }
+
+    //updateDriverLocation
+    public DeliveryDriverResponseDTO updateDriverLocation(Integer driverId, Double lat, Double lng) {
+        DeliveryDriver driver = deliveryDriverRepository.findById(driverId)
+                .orElseThrow(() -> new ResourceNotFoundException("Driver not found"));
+        driver.setCurrentLat(lat);
+        driver.setCurrentLng(lng);
+        deliveryDriverRepository.save(driver);
+        return DeliveryDriverResponseDTO.fromEntity(driver);
     }
 }
