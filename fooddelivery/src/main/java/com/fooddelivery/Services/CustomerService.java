@@ -88,9 +88,7 @@ public class CustomerService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
         List<CustomerAddress> addresses = customerAddressRepository.findByCustomerId(customerId);
-
         List<CustomerAddressResponseDTO> response = new ArrayList<>();
-
         for (CustomerAddress address : addresses) {
             response.add(CustomerAddressResponseDTO.fromEntity(address));
         }
