@@ -12,6 +12,8 @@ import com.fooddelivery.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DeliveryService {
     @Autowired
@@ -28,6 +30,23 @@ public class DeliveryService {
 
         DeliveryDriver driver = deliveryDriverRepository.findById(driverId)
                         .orElseThrow(() -> new ResourceNotFoundException("Driver not found"));
+        Delivery delivery = new Delivery();
+        delivery.setOrder(order);
+        delivery.setDeliveryDriver(driver);
+        delivery.setTrackingCode(HelperUtils.generateCode("TRK"));
+        delivery.setStatus("ASSIGNED");
+        deliveryRepository.save(delivery);
+        return DeliveryResponseDTO.fromEntity(delivery);
+    }
+    //autoAssignDriver
+    public DeliveryResponseDTO autoAssignDriver(Integer orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        List<DeliveryDriver> drivers = deliveryDriverRepository.findOnlineDrivers();
+        if (drivers.isEmpty()) {
+            throw new ResourceNotFoundException("No available drivers");
+        }
+        DeliveryDriver driver = drivers.get(0);
         Delivery delivery = new Delivery();
         delivery.setOrder(order);
         delivery.setDeliveryDriver(driver);
