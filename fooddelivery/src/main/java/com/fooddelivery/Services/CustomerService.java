@@ -79,5 +79,10 @@ public class CustomerService {
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
         return CustomerResponseDTO.fromEntity(customer);
     }
+    public CustomerResponseDTO findByEmail(String email) {
+        Customer customer = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        return CustomerResponseDTO.fromEntity(customer);
+    }
 
 }
