@@ -20,10 +20,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
-    private CustomerAddressRepository customerAddressRepository;
+    private CustomerAddressRepository customerAddressRepository;;
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
     public CustomerResponseDTO createCustomer(CustomerRequestDTO dto) {
         Customer customer = dto.toEntity();
         customer.setLoyaltyPoints(0);
