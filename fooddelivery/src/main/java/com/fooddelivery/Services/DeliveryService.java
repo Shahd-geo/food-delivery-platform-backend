@@ -85,5 +85,10 @@ public class DeliveryService {
         deliveryRepository.save(delivery);
         return DeliveryResponseDTO.fromEntity(delivery);
     }
+    //getDeliveriesForDriver
+    public List<DeliveryResponseDTO> getDeliveriesForDriver(Integer driverId, String status) {
+        List<Delivery> deliveries = deliveryRepository.findByDeliveryDriverIdAndStatus(driverId, status);
+        return DeliveryResponseDTO.fromEntity(deliveries);
+    }
 
 }
