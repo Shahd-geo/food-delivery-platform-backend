@@ -1,9 +1,6 @@
 package com.fooddelivery.Controllers;
 
-import com.fooddelivery.Dto.CustomerAddressRequestDTO;
-import com.fooddelivery.Dto.CustomerAddressResponseDTO;
-import com.fooddelivery.Dto.CustomerRequestDTO;
-import com.fooddelivery.Dto.CustomerResponseDTO;
+import com.fooddelivery.Dto.*;
 import com.fooddelivery.Entities.Customer;
 import com.fooddelivery.Entities.CustomerAddress;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
@@ -33,11 +30,13 @@ public class CustomerController {
         CustomerResponseDTO response = customerService.createCustomer(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
     @GetMapping
     public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomers()
         );
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponseDTO> getCustomerById(
             @PathVariable Integer id) {
@@ -46,38 +45,49 @@ public class CustomerController {
                 customerService.getCustomerById(id)
         );
     }
+
     @GetMapping("/email/{email}")
     public ResponseEntity<CustomerResponseDTO> getCustomerByEmail(@PathVariable String email) {
         return ResponseEntity.ok(customerService.findByEmail(email)
         );
     }
+
     @PutMapping("/{id}/deactivate")
     public ResponseEntity<String> deactivateCustomer(@PathVariable Integer id) {
         return ResponseEntity.ok(customerService.deactivateCustomer(id)
         );
     }
+
     @PutMapping("/{id}/loyalty/add/{points}")
     public ResponseEntity<CustomerResponseDTO> addLoyaltyPoints(@PathVariable Integer id, @PathVariable int points) {
         return ResponseEntity.ok(customerService.updateLoyaltyPoints(id, points)
         );
     }
+
     @PutMapping("/{id}/loyalty/deduct/{points}")
     public ResponseEntity<CustomerResponseDTO> deductLoyaltyPoints(@PathVariable Integer id, @PathVariable int points) {
         return ResponseEntity.ok(customerService.applyLoyaltyPenalty(id, points)
         );
     }
+
     @PostMapping("/{id}/addresses")
     public ResponseEntity<CustomerAddressResponseDTO> addAddress(@PathVariable Integer id, @RequestBody @Valid CustomerAddressRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.addAddress(id, dto));
     }
+
     @DeleteMapping("/addresses/{addressId}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Integer addressId) {
         customerService.deleteAddress(addressId);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/addresses/{addressId}/default")
     public ResponseEntity<CustomerAddressResponseDTO> setDefaultAddress(@PathVariable Integer addressId) {
         return ResponseEntity.ok(customerService.setDefaultAddress(addressId));
     }
 
-        }
+    @GetMapping("/{id}/orders")
+    public ResponseEntity<List<OrderResponseDTO>> getCustomerOrders(@PathVariable Integer id) {
+        return ResponseEntity.ok(customerService.getAllCustomerOrders(id));
+    }
+}
