@@ -36,4 +36,9 @@ public class CustomerController {
                 customerService.getCustomerById(id)
         );
     }
+    @GetMapping("/email/{email}")
+    public ResponseEntity<CustomerResponseDTO> getCustomerByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(customerService.findByEmail(email)
+        );
+    }
 }
