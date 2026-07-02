@@ -28,4 +28,12 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAllCustomers()
         );
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponseDTO> getCustomerById(
+            @PathVariable Integer id) {
+
+        return ResponseEntity.ok(
+                customerService.getCustomerById(id)
+        );
+    }
 }

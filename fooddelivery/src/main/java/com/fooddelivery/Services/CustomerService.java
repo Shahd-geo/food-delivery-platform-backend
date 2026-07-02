@@ -74,5 +74,10 @@ public class CustomerService {
         }
         return response;
     }
+    public CustomerResponseDTO getCustomerById(Integer customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        return CustomerResponseDTO.fromEntity(customer);
+    }
 
 }
