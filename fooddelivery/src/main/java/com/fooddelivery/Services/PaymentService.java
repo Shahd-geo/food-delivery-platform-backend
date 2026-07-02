@@ -29,4 +29,12 @@ public class PaymentService {
         paymentRepository.save(payment);
         return PaymentResponseDTO.fromEntity(payment);
     }
+    public PaymentResponseDTO refundPayment(Integer paymentId) {
+
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Payment not found"));
+        payment.setStatus("REFUNDED");
+        paymentRepository.save(payment);
+        return PaymentResponseDTO.fromEntity(payment);
+    }
 }
