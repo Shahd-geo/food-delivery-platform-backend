@@ -2,6 +2,7 @@ package com.fooddelivery.Services;
 
 import com.fooddelivery.Dto.ReviewResponseDTO;
 import com.fooddelivery.Entities.Customer;
+import com.fooddelivery.Entities.DeliveryDriver;
 import com.fooddelivery.Entities.Restaurant;
 import com.fooddelivery.Entities.Review;
 import com.fooddelivery.Exceptions.ResourceNotFoundException;
@@ -38,6 +39,26 @@ public class ReviewService {
         review.setCreatedAt(LocalDateTime.now().toString());
         review.setCustomer(customer);
         review.setRestaurant(restaurant);
+        reviewRepository.save(review);
+        return ReviewResponseDTO.fromEntity(review);
+    }
+    //leaveDriverReview
+    public ReviewResponseDTO leaveDriverReview(
+            Integer customerId,
+            Integer driverId,
+            int rating,
+            String comment) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+        DeliveryDriver driver = deliveryDriverRepository.findById(driverId)
+                .orElseThrow(() -> new ResourceNotFoundException("Driver not found"));
+        Review review = new Review();
+        review.setTargetType("DRIVER");
+        review.setRating(rating);
+        review.setComment(comment);
+        review.setCreatedAt(LocalDateTime.now().toString());
+        review.setCustomer(customer);
+        review.setDeliveryDriver(driver);
         reviewRepository.save(review);
         return ReviewResponseDTO.fromEntity(review);
     }
